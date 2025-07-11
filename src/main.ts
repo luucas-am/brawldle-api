@@ -1,9 +1,13 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app/app.module';
+import { ValidationPipe } from '@nestjs/common';
+import { apiReference } from '@scalar/nestjs-api-reference';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+  app.useGlobalPipes(new ValidationPipe())
   
   app.enableCors({
     origin: ['http://localhost:3000'],
@@ -21,6 +25,15 @@ async function bootstrap() {
     
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
+  app.use(
+    '/reference',
+    apiReference({
+      spec: {
+        content: document,
+      },
+      hideDownloadButton: true,
+    }),
+  );
 
   await app.listen(process.env.PORT || 8000);
 }
