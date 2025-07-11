@@ -11,6 +11,7 @@ services:
     depends_on:
       - postgres
     environment:
+      NODE_ENV: homolog
       DATABASE_URL: postgres://postgres:postgres@postgres:5432/mydb
     restart: unless-stopped
 
@@ -19,7 +20,7 @@ services:
     container_name: brawldle-pgdb
     restart: unless-stopped
     environment:
-      POSTGRES_DB: mydb
+      POSTGRES_DB: brawldledb
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     volumes:
