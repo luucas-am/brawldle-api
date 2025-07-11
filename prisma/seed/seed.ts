@@ -27,7 +27,6 @@ async function main() {
   for (const brawler of brawlers) {
     await prisma.brawler.create({
       data: {
-        id: brawler.name,
         name: brawler.name,
         rarity: brawler.rarity,
         role: brawler.role,
