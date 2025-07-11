@@ -1,6 +1,6 @@
 {
-  "name": "core-nestjs",
-  "version": "0.0.1",
+  "name": "brawldle-api",
+  "version": "1.0.0",
   "description": "",
   "author": "",
   "private": true,
