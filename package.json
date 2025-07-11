@@ -58,7 +58,10 @@
       "json",
       "ts"
     ],
-    "rootDir": "src",
+    "roots": [
+      "src",
+      "test"
+    ],
     "testRegex": ".*\\.spec\\.ts$",
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
@@ -67,6 +70,14 @@
       "**/*.(t|j)s"
     ],
     "coverageDirectory": "../coverage",
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "moduleNameMapper": {
+      "^src/(.*)$": "<rootDir>/src/$1",
+      "^test/(.*)$": "<rootDir>/test/$1",
+      "^@modules/(.*)$": "<rootDir>/src/app/modules/$1"
+    }
+  },
+  "prisma": {
+    "seed": "ts-node ./prisma/seed/seed.ts"
   }
 }
