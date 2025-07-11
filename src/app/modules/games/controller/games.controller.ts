@@ -1,23 +1,15 @@
 import { ApiCreatedResponse, ApiOkResponse, ApiTags } from "@nestjs/swagger";
 import { Controller, Get, Post, Put, Body, Param } from "@nestjs/common";
-import { GetGamesService } from "./services/get-games.service";
-import { GetGameService } from "./services/get-game.service";
-import { GetGameByDateService } from "./services/get-game-by-date.service";
-import { CreateGameService } from "./services/create-game.service";
-import { UpdateGameService } from "./services/update-game.service";
-import { CreateGameDto } from "./dtos/create-game.dto";
-import { UpdateGameDto } from "./dtos/update-game.dto";
-import { GetGameDto } from "./dtos/get-game.dto";
+import { GamesService } from "../service/games.service";
+import { GetGameDto } from "../dto/get-game.dto";
+import { CreateGameDto } from "../dto/create-game.dto";
+import { UpdateGameDto } from "../dto/update-game.dto";
 
 @ApiTags("Games")
 @Controller("games")
 export class GamesController {
   constructor(
-    private readonly getGamesService: GetGamesService,
-    private readonly getGameService: GetGameService,
-    private readonly getGameByDateService: GetGameByDateService,
-    private readonly createGameService: CreateGameService,
-    private readonly updateGameService: UpdateGameService,
+    private readonly gamesService: GamesService
   ) {}
 
   @Get()
@@ -26,7 +18,7 @@ export class GamesController {
     type: [GetGameDto],
   })
   async findAll() {
-    return this.getGamesService.execute();
+    return this.gamesService.getAllGames();
   }
 
   @Get(":id")
@@ -35,7 +27,7 @@ export class GamesController {
     type: GetGameDto,
   })
   async findOne(@Param("id") id: string) {
-    return this.getGameService.execute(id);
+    return this.gamesService.getGameById(id);
   }
 
   @Get("date/:date")
@@ -44,7 +36,7 @@ export class GamesController {
     type: GetGameDto,
   })
   async findByDate(@Param("date") date: string) {
-    return this.getGameByDateService.execute(date);
+    return this.gamesService.getGameByDate(date);
   }
 
   @Post()
@@ -53,7 +45,7 @@ export class GamesController {
     type: GetGameDto,
   })
   async create(@Body() createGameDto: CreateGameDto) {
-    return this.createGameService.execute(createGameDto);
+    return this.gamesService.createGame(createGameDto);
   }
 
   @Put(":id")
@@ -62,6 +54,6 @@ export class GamesController {
     type: GetGameDto,
   })
   async update(@Param("id") id: string, @Body() updateGameDto: UpdateGameDto) {
-    return this.updateGameService.execute(id, updateGameDto);
+    return this.gamesService.updateGame(id, updateGameDto);
   }
 }

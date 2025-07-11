@@ -1,6 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { Brawler, GameMode } from "@prisma/client";
-import { GetBrawlerDto } from "../../brawlers/dtos/get-brawler.dto";
+import { GetBrawlerDto } from "../../brawlers/dto/get-brawler.dto";
 
 export class GetGameDto {
   @ApiProperty({

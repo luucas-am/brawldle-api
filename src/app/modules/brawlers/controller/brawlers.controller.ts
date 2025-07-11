@@ -1,17 +1,13 @@
 import { ApiOkResponse, ApiTags } from "@nestjs/swagger";
 import { Controller, Get, Param } from "@nestjs/common";
-import { GetBrawlersService } from "./service/get-brawlers.service";
-import { GetBrawlerService } from "./service/get-brawler.service";
-import { GetBrawlerByNameService } from "./service/get-brawler-by-name.service";
-import { GetBrawlerDto } from "./dtos/get-brawler.dto";
+import { BrawlersService } from "../service/brawlers.service";
+import { GetBrawlerDto } from "../dto/get-brawler.dto";
 
 @ApiTags("Brawlers")
 @Controller("brawlers")
 export class BrawlersController {
   constructor(
-    private readonly getBrawlersService: GetBrawlersService,
-    private readonly getBrawlerService: GetBrawlerService,
-    private readonly getBrawlerByNameService: GetBrawlerByNameService,
+    private readonly brawlersService: BrawlersService,
   ) {}
 
   @Get()
@@ -20,7 +16,7 @@ export class BrawlersController {
     type: [GetBrawlerDto],
   })
   async findAll() {
-    return this.getBrawlersService.execute();
+    return this.brawlersService.getAllBrawlers();
   }
 
   @Get(":id")
@@ -29,7 +25,7 @@ export class BrawlersController {
     type: GetBrawlerDto,
   })
   async findOne(@Param("id") id: string) {
-    return this.getBrawlerService.execute(id);
+    return this.brawlersService.getBrawlerById(id);
   }
 
   @Get("name/:name")
@@ -38,6 +34,6 @@ export class BrawlersController {
     type: GetBrawlerDto,
   })
   async findByName(@Param("name") name: string) {
-    return this.getBrawlerByNameService.execute(name);
+    return this.brawlersService.getBrawlerByName(name);
   }
 }

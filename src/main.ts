@@ -3,6 +3,8 @@ import { AppModule } from './app/app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { apiReference } from '@scalar/nestjs-api-reference';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import * as dotenv from 'dotenv';
+
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -34,7 +36,8 @@ async function bootstrap() {
       hideDownloadButton: true,
     }),
   );
-
+  
   await app.listen(process.env.PORT || 8080);
 }
+dotenv.config();
 bootstrap();
