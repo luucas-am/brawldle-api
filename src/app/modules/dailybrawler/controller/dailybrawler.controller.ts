@@ -16,7 +16,18 @@ export class DailybrawlerController {
     type: [GetDailyBrawlerDto],
     })
     async getTodayDailyBrawler() {
-        return this.dailyBrawlerService.getTodayDailyBrawler();
+        const brawler = await this.dailyBrawlerService.getTodayDailyBrawler();
+
+        if (!brawler) {
+            throw new Error("No daily brawler found for today");
+        }
+
+        const brawlerDto = new GetDailyBrawlerDto();
+        brawlerDto.id = brawler.id;
+        brawlerDto.date = brawler.date;
+        brawlerDto.active = brawler.active;
+        brawlerDto.brawler = brawler.brawler;
+        return brawlerDto;
     }
 
 
