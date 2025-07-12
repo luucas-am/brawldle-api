@@ -10,9 +10,11 @@ services:
       - "8080:8080"
     depends_on:
       - postgres
+      - mongo
     environment:
       NODE_ENV: homolog
       DATABASE_URL: postgres://postgres:postgres@postgres:5432/mydb
+      MONGO_URI: mongodb://mongo:27017/brawldledb
     restart: unless-stopped
 
   postgres:
@@ -42,6 +44,29 @@ services:
     volumes:
       - pgadmin_data:/var/lib/pgadmin
 
+  mongo:
+    image: mongo:7.0
+    container_name: brawldle-mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodata:/data/db
+
+  mongo-express:
+    image: mongo-express:1.0.0-alpha.4
+    container_name: brawldle-mongo-express
+    restart: unless-stopped
+    ports:
+      - "8081:8081"
+    environment:
+      ME_CONFIG_MONGODB_SERVER: mongo
+      ME_CONFIG_BASICAUTH_USERNAME: admin
+      ME_CONFIG_BASICAUTH_PASSWORD: admin
+    depends_on:
+      - mongo
+
 volumes:
   pgdata:
   pgadmin_data:
+  mongodata:

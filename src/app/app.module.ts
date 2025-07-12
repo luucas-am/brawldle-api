@@ -4,6 +4,8 @@ import { GamesModule } from './modules/games/games.module';
 import { BrawlersModule } from './modules/brawlers/brawlers.module';
 import { ScheduleModule } from '@nestjs/schedule';
 import { DailybrawlerModule } from './modules/dailybrawler/dailybrawler.module';
+import { MongooseModule } from '@nestjs/mongoose';
+import { GamestatsModule } from './modules/gamestats/gamestats.module';
 
 @Module({
   imports: [
@@ -11,7 +13,9 @@ import { DailybrawlerModule } from './modules/dailybrawler/dailybrawler.module';
     PrismaModule,
     BrawlersModule,
     GamesModule,
-    DailybrawlerModule
+    DailybrawlerModule,
+    MongooseModule.forRoot(process.env.MONGO_URI),
+    GamestatsModule
   ],
   providers: [],
 })
