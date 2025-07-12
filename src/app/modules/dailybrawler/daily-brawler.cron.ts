@@ -33,9 +33,6 @@ export class DailyBrawlerCron implements OnModuleInit {
     const last5Brawlers = await this.dailyBrawlerService.getLast5DailyBrawlers();
     const last5Ids = last5Brawlers.map(b => b.brawlerId);
 
-    this.logger.log(`Total de brawlers disponíveis: ${brawlers.length}`);
-    this.logger.log(`Últimos 5 brawlers usados: ${last5Ids.join(', ')}`);
-    this.logger.log(`quantidade de brawlers disponíveis para sorteio: ${brawlers.length - last5Ids.length}`);
     const eligibleBrawlers = brawlers.filter(b => !last5Ids.includes(b.id));
 
     if (eligibleBrawlers.length === 0) {
@@ -47,7 +44,7 @@ export class DailyBrawlerCron implements OnModuleInit {
     const random = eligibleBrawlers[randomIndex];
 
     if (last5Brawlers.length > 0){
-      await this.dailyBrawlerService.deactivateDailyBrawlerById(last5Ids[randomIndex % last5Ids.length]);
+      await this.dailyBrawlerService.deactivateDailyBrawlerById(last5Brawlers[0].id);
     }
       
 
