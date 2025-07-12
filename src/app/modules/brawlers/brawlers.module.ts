@@ -12,6 +12,7 @@ import { BrawlersService } from "./service/brawlers.service";
     BrawlersRepository,
     BrawlersService,
   ],
+  exports: [BrawlersService],
 })
 
 export class BrawlersModule {}

@@ -21,20 +21,32 @@ model Game {
   createdAt   DateTime @default(now())
   brawler     Brawler  @relation(fields: [brawlerId], references: [id])
 
-  @@map("games") 
+  @@map("games")
 }
 
 model Brawler {
-  id          String   @id @default(cuid())
-  name        String
-  rarity      String
-  role        String
-  gender      String
-  releaseYear Int
-  imageUrl    String
-  games       Game[]
+  id            String         @id @default(cuid())
+  name          String
+  rarity        String
+  role          String
+  gender        String
+  releaseYear   Int
+  imageUrl      String
+  games         Game[]
+  dailyBrawlers DailyBrawler[]
 
   @@map("brawlers")
+}
+
+model DailyBrawler {
+  id        String   @id @default(cuid())
+  date      DateTime @unique
+  brawlerId String
+  active    Boolean  @default(true)
+
+  brawler Brawler @relation(fields: [brawlerId], references: [id])
+
+  @@map("daily_brawlers")
 }
 
 enum GameMode {
