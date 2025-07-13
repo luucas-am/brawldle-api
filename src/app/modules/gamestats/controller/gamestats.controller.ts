@@ -17,4 +17,9 @@ export class GameStatsController {
   async findByUser(@Param('userId') userId: string) {
     return await this.service.findByUser(userId);
   }
+
+  @Get('user/:userId/streak')
+  async userStreak(@Param('userId') userId: string) {
+    return await this.service.userStreak(userId);
+  }
 }

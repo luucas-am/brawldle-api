@@ -9,7 +9,10 @@ export class GameStat {
   userId: string;
 
   @Prop({ required: true })
-  brawlerOfTheDay: string;
+  gameType: GameType;
+
+  @Prop({ required: false })
+  dailyBrawler?: string;
 
   @Prop({
     type: [
@@ -33,3 +36,8 @@ export class GameStat {
 }
 
 export const GameStatSchema = SchemaFactory.createForClass(GameStat);
+
+export enum GameType {
+  BrawlerEndless = 0,
+  BrawlerDaily = 1,
+}

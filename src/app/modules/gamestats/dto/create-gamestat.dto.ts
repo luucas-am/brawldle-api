@@ -1,5 +1,15 @@
-import { IsArray, IsBoolean, IsInt, IsNotEmpty, IsString, ValidateNested } from 'class-validator';
+import {
+  IsArray,
+  IsBoolean,
+  IsEnum,
+  IsInt,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  ValidateNested,
+} from 'class-validator';
 import { Type } from 'class-transformer';
+import { GameType } from '../schemas/gamestat.schema';
 
 class AttemptDto {
   @IsString()
@@ -14,16 +24,13 @@ export class CreateGameStatDto {
   @IsNotEmpty()
   userId: string;
 
-  @IsString()
-  brawlerOfTheDay: string;
+  @IsEnum(GameType)
+  gameType: GameType; 
 
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => AttemptDto)
   attempts: AttemptDto[];
-
-  @IsInt()
-  attemptCount: number;
 
   @IsBoolean()
   won: boolean;

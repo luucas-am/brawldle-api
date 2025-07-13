@@ -47,4 +47,12 @@ export class GetBrawlerDto {
     required: true,
   })
   imageUrl: string;
+
+  @ApiProperty({
+    description: "Rarity of the brawler",
+    example: "Super Rare",
+    type: String,
+    required: true,
+  })
+  rarity: string;
 }

@@ -13,7 +13,7 @@ services:
       - mongo
     environment:
       NODE_ENV: homolog
-      DATABASE_URL: postgres://postgres:postgres@postgres:5432/mydb
+      DATABASE_URL: postgres://postgres:postgres@postgres:5432/brawldledb
       MONGO_URI: mongodb://mongo:27017/brawldledb
     restart: unless-stopped
 

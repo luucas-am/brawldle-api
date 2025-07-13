@@ -10,25 +10,7 @@ export class DailybrawlerController {
         private readonly dailyBrawlerService: DailybrawlerService,
     ) {}
 
-    @Get("today")
-    @ApiOkResponse({
-    description: "Returns a list of all brawlers",
-    type: [GetDailyBrawlerDto],
-    })
-    async getTodayDailyBrawler() {
-        const brawler = await this.dailyBrawlerService.getTodayDailyBrawler();
-
-        if (!brawler) {
-            throw new Error("No daily brawler found for today");
-        }
-
-        const brawlerDto = new GetDailyBrawlerDto();
-        brawlerDto.id = brawler.id;
-        brawlerDto.date = brawler.date;
-        brawlerDto.active = brawler.active;
-        brawlerDto.brawler = brawler.brawler;
-        return brawlerDto;
-    }
+    
 
 
 

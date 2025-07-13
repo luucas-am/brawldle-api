@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { PrismaModule } from './database/prisma.module';
-import { GamesModule } from './modules/games/games.module';
 import { BrawlersModule } from './modules/brawlers/brawlers.module';
 import { ScheduleModule } from '@nestjs/schedule';
 import { DailybrawlerModule } from './modules/dailybrawler/dailybrawler.module';
@@ -15,7 +14,6 @@ import { GamestatsModule } from './modules/gamestats/gamestats.module';
     ScheduleModule.forRoot(),
     PrismaModule,
     BrawlersModule,
-    GamesModule,
     DailybrawlerModule,
     GamestatsModule,
 

@@ -3,7 +3,7 @@ import { BrawlersRepository } from '../repository/brawlers.repository';
 
 @Injectable()
 export class BrawlersService {
-
+  
   constructor(private readonly brawlersRepository: BrawlersRepository) {}
   
   async getAllBrawlers() {
@@ -17,4 +17,11 @@ export class BrawlersService {
   async getBrawlerByName(name: string) {
     return this.brawlersRepository.findByName(name);
   }
+
+  async getRandomBrawler() {
+    var brawlers = await this.brawlersRepository.findAll();
+    const randomIndex = Math.floor(Math.random() * brawlers.length);
+    return brawlers[randomIndex];
+  }
+
 }

@@ -13,17 +13,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Game {
-  id          String   @id @default(cuid())
-  mode        GameMode
-  description String?
-  brawlerId   String
-  createdAt   DateTime @default(now())
-  brawler     Brawler  @relation(fields: [brawlerId], references: [id])
-
-  @@map("games")
-}
-
 model Brawler {
   id            String         @id @default(cuid())
   name          String
@@ -32,7 +21,6 @@ model Brawler {
   gender        String
   releaseYear   Int
   imageUrl      String
-  games         Game[]
   dailyBrawlers DailyBrawler[]
 
   @@map("brawlers")
