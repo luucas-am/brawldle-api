@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { PrismaModule } from './database/prisma.module';
 import { GamesModule } from './modules/games/games.module';
 import { BrawlersModule } from './modules/brawlers/brawlers.module';
@@ -9,15 +10,22 @@ import { GamestatsModule } from './modules/gamestats/gamestats.module';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
+
     ScheduleModule.forRoot(),
     PrismaModule,
     BrawlersModule,
     GamesModule,
     DailybrawlerModule,
-    MongooseModule.forRoot(process.env.MONGO_URI),
-    GamestatsModule
-  ],
-  providers: [],
-})
+    GamestatsModule,
 
+    MongooseModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (config: ConfigService) => ({
+        uri: config.get<string>('MONGO_URI'),
+      }),
+    }),
+  ],
+})
 export class AppModule {}
